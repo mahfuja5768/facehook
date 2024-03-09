@@ -1,25 +1,24 @@
 import { useForm } from "react-hook-form";
 import Field from "../common/Field";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm();
+
+
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const submitForm = (formData) => {
     console.log(formData);
-    const user = { email: "asd@a.com", password: "12345678" };
-    const found =
-      formData.email === user.email && formData.password === user.password;
-    if (!found) {
-      setError("root.random", {
-        message: `User with email '${formData.email}' is not found`,
-        type: "random",
-      });
-    }
+    const user = { ...formData };
+    setAuth({ user });
+    navigate("/");
   };
   return (
     <form
@@ -29,7 +28,7 @@ const LoginForm = () => {
       <Field label="Email" error={errors.email}>
         <input
           {...register("email", { required: "Email is required." })}
-          className={`p-2 border box-border w-[300px] rounded-md ${
+          className={`auth-input ${
             !!errors.email ? "border-red-500" : "border-gray-200"
           }`}
           type="email"
@@ -47,7 +46,7 @@ const LoginForm = () => {
               message: "Yous password must be at least 8 characters!",
             },
           })}
-          className={`p-2 border box-border w-[300px] rounded-md ${
+          className={`auth-input ${
             !!errors.password ? "border-red-500" : "border-gray-200"
           }`}
           type="password"
@@ -55,6 +54,15 @@ const LoginForm = () => {
           id="password"
           placeholder="Enter password address"
         />
+      </Field>
+
+      <Field>
+        <button
+          className="auth-input bg-lwsGreen font-bold text-deepDark transition-all hover:opacity-90"
+          type="submit"
+        >
+          Login
+        </button>
       </Field>
     </form>
   );

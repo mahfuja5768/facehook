@@ -1,7 +1,15 @@
-
+import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const HomePage = () => {
-    return <div>HomePage</div>;
+  const { auth } = useAuth();
+  console.log(auth);
+  return (
+    <div>
+      <p>HomePage</p>
+      <Link to="/me">Go To Profile Page</Link>
+    </div>
+  );
 };
 
 export default HomePage;
