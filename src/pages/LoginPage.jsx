@@ -30,7 +30,7 @@ const LoginPage = () => {
                 Don’t have account?
                 <Link
                   className="text-white transition-all hover:text-lwsGreen hover:underline"
-                  to="/registration"
+                  to="/register"
                 >
                   Create New
                 </Link>

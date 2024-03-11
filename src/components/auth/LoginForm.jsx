@@ -12,33 +12,40 @@ const LoginForm = () => {
     setError,
   } = useForm();
 
+  //saadh392@mail.com
+  //bestPassw0rd
+
   const navigate = useNavigate();
   const { setAuth } = useAuth();
 
   const submitForm = async (formData) => {
     try {
-      const response = await axios.post(
+      let response = await axios.post(
         `${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`,
         formData
       );
+
       if (response.status === 200) {
-        const { user, token } = response.data;
+        const { token, user } = response.data;
         if (token) {
           const authToken = token.token;
           const refreshToken = token.refreshToken;
-          console.log(authToken, "token---------->");
+
+          console.log(`Login time auth token: ${authToken}`);
           setAuth({ user, authToken, refreshToken });
+
           navigate("/");
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setError("root.random", {
         type: "random",
-        message: `User with email ${formData.email} is not found!`,
+        message: `User with email ${formData.email} is not found`,
       });
     }
   };
+  
   return (
     <form
       className="border-b border-[#3F3F3F] pb-10 lg:pb-[60px]"
