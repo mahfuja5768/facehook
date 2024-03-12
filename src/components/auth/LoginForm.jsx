@@ -13,7 +13,7 @@ const LoginForm = () => {
   } = useForm();
 
   //saadh392@mail.com
-  //bestPassw0rd
+  //bestPassword
 
   const navigate = useNavigate();
   const { setAuth } = useAuth();
